@@ -36,11 +36,6 @@ ressources:
                             - "logs:PutLogEvents"
                         Resource: "arn:aws:logs:*:*:*"
                     - Effect: Allow
-                        # Write access to Kinesis Stream
-                        Action:
-                            - "kinesis:PutRecords"
-                        Ressource: "*"
-                    - Effect: Allow
                         # Read from S3 bucket
                         Action:
                             - "s3:GetObject"

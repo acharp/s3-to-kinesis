@@ -10,3 +10,5 @@ meta:
                     parser: lambda
                     parameters:
                         path: lambda_function.py
+                        dependencies:
+                            - google-api-python-client
