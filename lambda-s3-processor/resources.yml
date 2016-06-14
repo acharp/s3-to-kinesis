@@ -1,0 +1,47 @@
+---
+ressources:
+
+    LambdaFunction:
+        Type: "AWS::Lamda::Function"
+        Properties:
+            Code: {{lambda_function}}
+            Runtime: "python2.7"
+            Description: "Lambda function to process data in s3 bucket"
+            Handler: lambda_function.lambda_handler
+            Role:
+            "Fn::GetAtt":
+                - LambdaExecutionRole
+                - Arn
+
+    LambdaExecutionRole:
+        Type: "AWS::IAM::Role"
+        Properties:
+            AssumeRolePolicyDocument:
+                Version: "2012-10-17"
+                Statement:
+                  - Effect: Allow
+                    Principal:
+                        Service: "lambda.amazonaws.com"
+                    Action: "sts:AssumeRole"
+            Policies:
+                - PolicyName: root
+                  PolicyDocument:
+                    Version: "2012-10-17"
+                    Statement:
+                     - Effect: Allow
+                        # Write access to Cloudwatch logs
+                        Action:
+                            - "logs:CreateLogGroup"
+                            - "logs:CreateLogStream"
+                            - "logs:PutLogEvents"
+                        Resource: "arn:aws:logs:*:*:*"
+                    - Effect: Allow
+                        # Write access to Kinesis Stream
+                        Action:
+                            - "kinesis:PutRecords"
+                        Ressource: "*"
+                    - Effect: Allow
+                        # Read from S3 bucket
+                        Action:
+                            - "s3:GetObject"
+                        Ressource: "*"

@@ -1,0 +1,8 @@
+---
+outputs:
+    LambdaFunctionArn:
+        Description: The ARN of the lambda function deployed.
+        Value:
+            "Fn::GetAtt"
+                - LambdaFunction
+                - Arn
