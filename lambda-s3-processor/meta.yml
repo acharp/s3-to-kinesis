@@ -1,0 +1,15 @@
+---
+meta:
+    description:
+        Lambda function to extract data from a s3 bucket and send them to a kinesis stream.
+    parameters:
+        lambda_function:
+            description: The code to extract, parse and send the data from s3 to kinesis.
+            value:
+                ref:
+                    parser: lambda
+                    parameters:
+                        path: lambda_function.py
+                        dependencies:
+                            - google-api-python-client
+                            - oauth2client
